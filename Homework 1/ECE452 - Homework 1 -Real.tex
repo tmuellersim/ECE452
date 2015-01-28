@@ -1,6 +1,11 @@
-\documentclass[11pt, oneside, letter]{article}
+\documentclass[10pt, oneside, letter]{article}
 
-\usepackage{amsmath, mathtools, amsfonts, mathrsfs, enumitem, listings, color, graphicx, caption, float, indentfirst, titlesec, anysize, hyperref, fancyhdr, textcomp, lipsum, parskip}
+\usepackage{amsmath, mathtools, amsfonts, mathrsfs, enumitem, listings, color, graphicx, caption, float, indentfirst, titlesec, anysize, hyperref, fancyhdr, textcomp, lipsum, parskip, titling}
+
+%\usepackage[showframe]{geometry}
+%\usepackage{layout}
+
+\setlength{\droptitle}{-10ex}
 
 \pagestyle{fancy}
 \lhead{Tim Mueller-Sim}
@@ -14,6 +19,8 @@
 \author{Tim \textsc{Mueller-Sim} \\ {\tt tmuelle2@uic.edu} \\ \textsc{659991541} }
 \date{January 29, 2015}
 
+\vspace{-5ex}
+
 \maketitle 
 
 \vspace{-5ex}
@@ -23,9 +30,7 @@
 
 	%Problem 1
 	\item Given the vectors below, compute the following:
-	\begin{center}
-	$
-	\vec{v}_1 = 
+	$$\vec{v}_1 = 
 	\begin{bmatrix*}[r]
 	2 \\ -3 \\ 1
 	\end{bmatrix*}
@@ -44,8 +49,7 @@
 	\begin{bmatrix*}[r]
 	1 \\ -2 \\ 3 \\ -3
 	\end{bmatrix*}
-	$
-	\end{center}
+	$$
 
 		\begin{enumerate}
 		% 1a
@@ -71,14 +75,11 @@
 		\end{bmatrix*}$}
 		
 		\end{enumerate}
-	
-\vspace{4ex}
 
 	% Problem 2
 	\item Given the matrices below, compute the following:
 	
-	\begin{center}
-	$ A = 
+	$$ A = 
 	\begin{bmatrix*}[r]
 	-4 & 5 & 2 \\ -5 & 0 & -5 \\ 5 & 0 & 3
 	\end{bmatrix*}	
@@ -92,8 +93,7 @@
 	\begin{bmatrix*}[r]
 	-1 & 2 & 1 \\ 1 & -2 & -3 \\ 0 & 1 & -2
 	\end{bmatrix*}	
-	$	
-	\end{center}	
+	$$		
 	
 		\begin{enumerate}
 		% 2a
@@ -109,8 +109,6 @@
 			2 & 10 & 8 \\ -13 & -15 & -21 \\ 17 & -15 & -1 \\ -27 & -10 & -35
 			\end{bmatrix*}
 			$
-			
-		\pagebreak
 		
 		%2c
 		\item $A + B: \quad$
@@ -139,117 +137,91 @@
 		
 		% 2g
 		\item Cannot multiply matrix with itself, as it is not a square matrix.
-		\begin{center}
-		$B \in \mathbb{R}^{4 \times 3}$
-		\end{center}
+		$$B \in \mathbb{R}^{4 \times 3}$$
 		
 		\end{enumerate}
 	
-\vspace{4ex}
 
 	% Problem 3
 	
 	\item Compute the eigenvalues and eigenvectors of the following matrix:
 	
-	\begin{center} 
-	$A = \begin{bmatrix*}[r]
+	$$A = \begin{bmatrix*}[r]
 	-3 & -1 & -2 \\ 4 & 2 & 2 \\ 6 & 2 & 4
-	\end{bmatrix*}$
-	\end{center}
+	\end{bmatrix*}$$
 	
-	\vspace{1ex}
 	Using the equation $\mbox{det}(A - \lambda \cdot I) = 0$, we can solve for the eigenvalues $\lambda$:
 	
-	\begin{center}
-	$\mbox{det}(A - \lambda \cdot I) = \mbox{det}\begin{bmatrix*}[r]
+	$$\mbox{det}(A - \lambda \cdot I) = \mbox{det}\begin{bmatrix*}[r]
 	-\lambda-3 & -1 & -2 \\ 4 & 2-\lambda & 2 \\ 6 & 2 & 4-\lambda
 	\end{bmatrix*} = -\lambda^3 + 3\lambda^2 - 2\lambda = 0
-	$
-	\\
-	\vspace{3ex}
+	$$
+	
+	\begin{center}
 	\framebox[65]{$\lambda = 0, 1, 2$}
 	\end{center}
 	
 	Using the equations $A\nu = \lambda\nu$ and $(A - \lambda I)\cdot \nu = 0$ we can compute the eigenvectors $\nu$:
 	
-		\begin{itemize}
-		\item \bf Case 1: $\lambda = 0$ \rm \\
+		\quad \bf Case 1: $\lambda = 0$ \rm 
 		
-		\centering
-		$(A + 0 \cdot I)\nu = 0 = A \nu = \left\{ \begin{array}{r} -3x - y - 2z \\ 4x + 2y + 2z \\ 6x + 2y + 4z \end{array} \right.$ \\
-		\flushleft
-		Solving for the system equations, we obtain \\
-		\centering
-		$\nu =\left( \begin{array}{r} x \\ y \\ z \end{array} \right) = c\begin{bmatrix*}[r] 1 \\ -1 \\ -1 
-		\end{bmatrix*}$ \\
+		$$(A + 0 \cdot I)\nu = 0 = A \nu = \left\{ \begin{array}{r} -3x - y - 2z \\ 4x + 2y + 2z \\ 6x + 2y + 4z \end{array} \right.$$ 
 		
-		\flushleft
-		where c is an arbitrary constant.
+		\quad Solving for the system equations, we obtain 
 		
-		\item \bf Case 2: $\lambda = 1$ \rm \\
+		$$\nu =\left( \begin{array}{r} x \\ y \\ z \end{array} \right) = c\begin{bmatrix*}[r] 1 \\ -1 \\ -1 
+		\end{bmatrix*}$$
+		
+		\quad where c is an arbitrary constant.
+		
+		\quad \bf Case 2: $\lambda = 1$ \rm 
 		Solving similarly to Case 1 above, we obtain
 		
-		\centering
-		$\nu = c\begin{bmatrix*}[r] 1 \\ 0 \\ -2 \end{bmatrix*}$ \\
+		$$\nu = c\begin{bmatrix*}[r] 1 \\ 0 \\ -2 \end{bmatrix*}$$ 
 		
-		\flushleft
-		\item \bf Case 3: $\lambda = 2$ \rm \\
+		\quad \bf Case 3: $\lambda = 2$ \rm
 		Solving similarly to Case 1 above, we obtain
 		
-		\centering
-		$\nu = c\begin{bmatrix*}[r] 1 \\ -1 \\ -2 \end{bmatrix*}$ \\
-		\flushleft
+		$$\nu = c\begin{bmatrix*}[r] 1 \\ -1 \\ -2 \end{bmatrix*}$$ 
 		
-		\end{itemize}
-	
-\vspace{4ex}
 	
 	% Problem 4
-	\item Using the Laplace transform formula, compute $e^{At}$ where \\
+	\item Using the Laplace transform formula, compute $e^{At}$ where 
 	
-	\centering $A = \begin{bmatrix*}[r] -2 & 1 \\ -1 & 0 \end{bmatrix*}$ \\
-	\flushleft
+	$$A = \begin{bmatrix*}[r] -2 & 1 \\ -1 & 0 \end{bmatrix*}$$ 
+	
 	
 	As outlined in class, $e^{At} = \mathcal{L}^{-1}[(sI - A)^{-1}]$. \\
-	\centering
-	\vspace{1ex}
-	$(sI - A)^{-1} = 
+	
+	$$(sI - A)^{-1} = 
 	\begin{bmatrix*}[c] s + 2 & -1 \\ 1 & s
 	\end{bmatrix*}^{-1} = 
 	\arraycolsep=2pt\def\arraystretch{2.2}
 	\begin{bmatrix*}[c] \dfrac{s}{s^2 + 2s + 1} & \dfrac{1}{s^2 + 2s + 1} \\ -\dfrac{1}{s^2 + 2s + 1} & \dfrac{s + 2}{s^2 + 2s + 1}
-	\end{bmatrix*} $ \\
+	\end{bmatrix*} $$ 
 	
-
-	\vspace{2ex}
-	$\mathcal{L}^{-1}
+	$$\mathcal{L}^{-1}
 	\arraycolsep=2pt\def\arraystretch{2.2}
 	\begin{bmatrix*}[c] \dfrac{s}{s^2 + 2s + 1} & \dfrac{1}{s^2 + 2s + 1} \\ -\dfrac{1}{s^2 + 2s + 1} & \dfrac{s + 2}{s^2 + 2s + 1}
 	\end{bmatrix*} = \begin{bmatrix*}[c]
 	e^{-t} -te^{-t} & te^{-t} \\ -te^{-t} & e^{-t} + te^{-t}
-	\end{bmatrix*} = e^{At}$ \\
-	
-	\flushleft 
-	\vspace{2ex}
+	\end{bmatrix*} = e^{At}$$ \\
+	 
 	Calculations were verified in MATLAB using the \tt ilaplace \rm function \\
 	
-\vspace{6ex}
-	
 	% Problem 5
-	\item Compute $e^{At}$ for $t = 3$ where \\
-	\centering
-	$A = \begin{bmatrix*}[r] -6 & 5 \\ -4 & 3
-	\end{bmatrix*}$ \\ \vspace{2ex}
+	\item Compute $e^{At}$ for $t = 3$ where 
+
+	$$A = \begin{bmatrix*}[r] -6 & 5 \\ -4 & 3
+	\end{bmatrix*}$$ 
 	
-	\flushleft
-	Solved using the \tt expm \rm function in MATLAB: \\ \vspace{2ex}
+	Solved using the \tt expm \rm function in MATLAB:
 	
-	\centering
-	$At = \begin{bmatrix*}[r] -18 & 15 \\ -12 & 9
-	\end{bmatrix*}$ \\
+	$$At = \begin{bmatrix*}[r] -18 & 15 \\ -12 & 9
+	\end{bmatrix*}$$
 	\vspace{2ex}
-	$e^{At} = \begin{bmatrix*}[r] -0.1868 & 0.2365 \\ -0.1892 & 0.2390
-	\end{bmatrix*}$ \\
+	$$e^{At} = \begin{bmatrix*}[r] -0.1868 & 0.2365 \\ -0.1892 & 0.2390
+	\end{bmatrix*}$$ 
 	
 	
 	\end{enumerate}
