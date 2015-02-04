@@ -1,0 +1,285 @@
+\documentclass[10pt, oneside, letter]{article}
+
+\usepackage{amsmath, mathtools, amsfonts, mathrsfs, enumitem, listings, color, graphicx, caption, float, indentfirst, titlesec, anysize, hyperref, fancyhdr, textcomp, lipsum, parskip, titling}
+
+%\usepackage[showframe]{geometry}
+%\usepackage{layout}
+
+\setlength{\droptitle}{-10ex}
+
+\pagestyle{fancy}
+\lhead{Tim Mueller-Sim}
+\rhead{University of Illinois at Chicago}
+\chead{ECE452 HW\#2}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\title{{\sc ECE 452} - {\sc Robotics: Algorithms and Control} \\ {\large \sc Homework \#2}}
+\author{Tim \textsc{Mueller-Sim} \\ {\tt tmuelle2@uic.edu} \\ \textsc{659991541} }
+\date{February 5, 2015}
+
+\vspace{-5ex}
+
+\maketitle 
+
+\vspace{-5ex}
+\noindent \hrulefill
+
+\section*{Problem 1}
+
+	\it Given a vector $v \in \mathbb{R}^{3}$, a skew-symmetric matrix $\hat{v} \in \mathbb{R}^{3 \times 3}$ can be defined so that $v \times w = \hat{v} w$ for any $w \in \mathbb{R}^{3}$.
+
+	\begin{enumerate}[label=(\alph*)]
+	
+		\item \it Compute $\hat {v}$ for $v = \begin{bmatrix*}[r] 4 \\ -3 \\ 1
+		\end{bmatrix*}$ \rm
+	
+			As defined, $$\boxed{\hat{v} \quad = \quad \begin{bmatrix*}[r]
+			0 & -v_3 & v_2 \\ v_3 & 0 & -v_1 \\ -v_2 & v_1 & 0
+			\end{bmatrix*} \quad = \quad
+			\begin{bmatrix*}[r]
+			0 & -1 & -3 \\ 1 & 0 & -4 \\ 3 & 4 & 0
+			\end{bmatrix*}}$$
+	
+	
+	
+		\item \it Compute $R = e^{\hat{v}}$ for $\hat{v}$ computed above. \rm
+	
+			Using Rodrigues' formula, $$e^{\hat{v}} = I_3 + \dfrac{\sin \phi}{\phi} \hat{v} + \dfrac{1 - \cos\phi}{\phi^2} \hat{v}^2$$ and letting $\phi = \sqrt{v_1^2 + v_2^2 + v_3^2} = \sqrt{26}$, we can compute $R$.
+			
+			$$\dfrac{\sin\phi}{\phi} = -0.1816 \qquad \dfrac{1-\cos\phi}{\phi^2} = 0.0240 \qquad \hat{v}^2  = \begin{bmatrix*}[r]
+			0 & -1 & -3 \\ 1 & 0 & -4 \\ 3 & 4 & 0
+			\end{bmatrix*} 
+			\begin{bmatrix*}[r]
+			0 & -1 & -3 \\ 1 & 0 & -4 \\ 3 & 4 & 0
+			\end{bmatrix*} = \begin{bmatrix*}[r]
+			-10 & -12 & 4 \\ -12 & -17 & -3 \\ 4 & -3 & -25
+			\end{bmatrix*}$$
+			
+			$$e^{\hat{v}} = \begin{bmatrix}
+			1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+			\end{bmatrix} - 0.1816\cdot
+			\begin{bmatrix*}[r]
+			0 & -1 & -3 \\ 1 & 0 & -4 \\ 3 & 4 & 0
+			\end{bmatrix*} + 0.0240\cdot
+			\begin{bmatrix*}[r]
+			-10 & -12 & 4 \\ -12 & -17 & -3 \\ 4 & -3 & -25
+			\end{bmatrix*}$$
+			
+			$$\boxed{e^{\hat{v}} = R = \begin{bmatrix*}[r]
+			0.7604 & -0.1059 & 0.6408 \\ -0.4691 & 0.5927 & 0.6547 \\ -0.4491 & -0.7984 & 0.4010
+			\end{bmatrix*}}$$
+			
+		\item \it Provide the geometric interpretation (axis - $\omega$, angle - $\theta$) of the rotation described by R. \rm
+		
+		Given $$\theta = \cos^{-1} \dfrac{Trace(R) - 1}{2}$$
+		$$\omega_1 = \dfrac{1}{2 \sin \theta} (r_{32} - r_{23}) \qquad
+		\omega_2 = \dfrac{1}{2 \sin \theta} (r_{13} - r_{31}) \qquad
+		\omega_3 = \dfrac{1}{2 \sin \theta} (r_{21} - r_{12})
+		$$
+			
+		$$\boxed{\theta = \cos^{-1} \left( \dfrac{1.7541 - 1}{2}\right) = 1.1842 \mathrm{rad} \qquad 
+		\omega = \begin{bmatrix*}[r]
+		-0.7845 \\ 0.5883 \\ -0.1961
+		\end{bmatrix*}}$$
+			
+		$\omega$ and $\theta$, calculated above, fully describe the rotation that can be generated using the rotational matrix R. $\omega$ is the axis of rotation with unit magnitude, and $\theta$ is the angle described in radians. The right-hand rule applies.
+	\end{enumerate}
+
+\hrulefill
+
+\section*{Problem 2}
+
+	\it What vector do you get if you rotate the vector $p = \begin{bmatrix*}[r] 2 \\ -3 \\ -1
+	\end{bmatrix*}$ 
+	by 0.9599 rad around the axis described by the vector $\omega = \begin{bmatrix*}[r] -1 \\ 2 \\ 4
+	\end{bmatrix*}$? \rm
+	
+		$${\| \omega \|} = 4.5826 \qquad
+		\omega_1 = \dfrac{\omega}{\| \omega \|} = \left[ \begin{array}{r}
+	 	 -0.218218 \\
+		  0.436436 \\
+	 	 0.872872
+		\end{array} \right] \qquad
+		\hat{\omega}_1 = 
+		\left[ \begin{array}{ccc}
+		  0 & -0.872872 & 0.436436 \\
+		  0.872872 & 0 & 0.218218 \\
+		  -0.436436 & -0.218218 & 0
+		\end{array} \right]$$
+		
+		$$\theta = 0.9599$$
+		
+		$$R =  e^{\hat{\omega}_1 \cdot \theta} = \mathbf{I} +\hat{\omega}_1 \sin{\theta} + \hat{\omega}_{1}^2(1 - \cos{\theta})$$ 
+	
+		$$= \left[ \begin{array}{ccc}
+		  1 & 0 & 0 \\
+		  0 & 1 & 0 \\
+		  0 & 0 & 1
+		\end{array} \right] + \left[ \begin{array}{ccc}
+		  0 & -0.7150 & 0.3575 \\
+		  0.7150 & 0 & 0.1788 \\
+		  -0.3575 & -0.1788 & 0
+		\end{array} \right] + \left[ \begin{array}{ccc}
+		  -0.4061 & -0.0406 & -0.0812 \\
+		  -0.0406 & -0.3452 & 0.1624 \\
+		  -0.0812 & 0.1624 & -0.1015
+		\end{array} \right] $$
+	
+		$$R = \left[ \begin{array}{ccc}
+		  0.5939 & -0.7556 & 0.2763 \\
+		  0.6744 & 0.6548 & 0.3412 \\
+		  -0.4387 & -0.0163 & 0.8985
+		\end{array} \right]$$ 
+		
+		$$p_b = R \cdot p_a = \left[ \begin{array}{ccc}
+		 0.5939 & -0.7556 & 0.2763 \\
+	     0.6744 & 0.6548 & 0.3412 \\
+		 -0.4387 & -0.0163 & 0.8985
+		\end{array} \right] \cdot \left[ \begin{array}{r}
+		  2 \\
+		  -3 \\
+		  -1
+		\end{array} \right]$$
+	
+		$$\boxed{p_b = 
+		\left[ \begin{array}{r}
+		  3.1784 \\
+		  -0.9568 \\
+		  -1.7270
+		\end{array} \right] }$$
+	
+\section*{Problem 3}
+
+	\it Compute a rotation matrix that would rotate the vector $q_1 = \left[ \begin{array}{r}
+	  -3 \\
+	  4 \\
+	  2
+	\end{array} \right]$ into the vector $q_2 = \left[ \begin{array}{r}
+	  2 \\
+	  -3 \\
+	  -4
+	\end{array} \right]$. \rm
+	
+	We can find an axis normal to the plane described by $q_1$ and $q_2$ by computing the cross product of the two vectors. Since the rotation is now planar, we compute the angle $\theta$ between the two vectors, using the properties of the dot product of two vectors. 
+	
+	$$q_1 \times q_2 = \omega = \left[ \begin{array}{r}
+	  -10 \\
+	  -8 \\
+	  1
+	\end{array} \right] \qquad
+	{\| q_1 \|} = {\| q_2 \|} = \sqrt{29} \qquad 
+	\theta = \cos^{-1}{\dfrac{q_1 \cdot q_2}{\| q_1 \| \| q_2 \|}} = \cos^{-1}{\dfrac{-26}{\sqrt{29}^2}} = 2.6827 \mathrm{\ rad}$$
+	
+	$$\| \omega \| = \sqrt{165} \qquad
+	\omega_1 = \dfrac{\omega}{\| \omega \|} = \left[ \begin{array}{r}
+	  -0.7785 \\
+	  -0.6228 \\
+	  0.0778
+	\end{array} \right] \qquad
+	\hat{\omega}_1 = \left[ \begin{array}{ccc}
+	  0.0000 & -0.0778 & -0.6228 \\
+	  0.0778 & 0.0000 & 0.7785 \\
+	  0.6228 & -0.7785 & 0.0000
+	\end{array} \right] $$
+	
+	$$R =  e^{\hat{\omega}_1 \cdot \theta} = \mathbf{I} +\hat{\omega}_1 \sin{\theta} + \hat{\omega}_{1}^2(1 - \cos{\theta})$$
+	
+	$$\boxed{R = \left[ \begin{array}{ccc}
+	  0.2529 & 0.8851 & -0.3908 \\
+	  0.9540 & -0.1609 & 0.2529 \\
+	  0.1609 & -0.4368 & -0.8851
+	\end{array} \right] }$$
+	
+	Using MATLAB we can perform a rudimentary check of our solution, \tt det(R) = 1.0000 \rm, \tt R*R' = I \rm, and \tt q2 = R*q1 \rm.
+	
+\hrulefill	
+
+\section*{Problem 4}
+
+	\it Consider the following rotational matrix:
+	
+	$$R = \left[ \begin{array}{ccc}
+	  0.9855 & -0.1673 & 0.0288 \\
+	  0.1179 & 0.7967 & 0.5927 \\
+	  -0.1220 & -0.5808 & 0.8049
+	\end{array} \right]$$
+	
+		\begin{enumerate}[label=(\alph*)]
+		
+		\item Find the exponential coordinates of $R$. \rmfamily
+		
+		$$\mathrm{Given:} \quad \theta = \cos^{-1} \dfrac{Trace(R)-1}{2} \quad \mathrm{and} \quad \omega = \dfrac{1}{2 \sin \theta} \left[ \begin{array}{ccc}
+			  r_{32} - r_{23} \\
+			  r_{13} - r_{31} \\
+			  r_{21} - r_{12}
+			\end{array} \right]$$
+			
+		$$\theta = \cos^{-1} \dfrac{2.5871-1}{2} = 0.6542 \mathrm{\ rad} \qquad \omega = \dfrac{1}{2 \sin 0.6542} \left[ \begin{array}{ccc}
+		 -0.5808 - 0.5927 \\
+		 0.0288 - (-0.1220) \\
+		 0.1179 - (-0.1673)
+		\end{array} \right] = \left[ \begin{array}{r}
+		  -0.9642 \\
+		  0.1239 \\
+		  0.2343
+		\end{array} \right]$$
+		
+		$$\mathrm{Exponential\ coordinates\ for\ R:} \quad \boxed{\omega \theta = \left[ \begin{array}{r}
+		  -0.6308 \\
+		  0.0811 \\
+		  0.1533
+		\end{array} \right] }$$
+		
+		\item \it Give the geometric interpretation of the rotation described by R. \rm
+		
+		$\omega$ and $\theta$, calculated above, fully describe the rotation that can be generated using the rotational matrix R. $\omega$ is the axis of rotation with unit magnitude, and $\theta$ is the angle described in radians. The right-hand rule applies.
+			
+		\end{enumerate}
+
+\hrulefill
+		
+\section*{Problem 5}
+	
+		A rotational matrix between frames A and B is given by: 
+		
+		$$R_{ab} = \left[ \begin{array}{ccc}
+		  0.6332 & -0.4828 & -0.6050 \\
+		  0.4703 & 0.8608 & -0.1948 \\
+		  0.6148 & -0.1611 & 0.7721
+		\end{array} \right] $$
+		
+		A point q is described in the frame A by a vector $q_a =
+		\left[ \begin{array}{r}
+		  2 \\
+		  -1 \\
+		  1
+		\end{array} \right]$. What is the description of $q$ in frame B? \rm
+		
+		We are given the rotational matrix $R_{ab}$ which, when multiplied by the vector $q$ in frame B, will result in the description of $q$ in frame A. We are, however, given the vector $q$ in frame A, and need to find the description of the vector in frame B. Using the simple matrix manipulations shown below, we can solve for the vector $q_b$ using the provided rotational matrix between frames A and B.
+		
+		$$q_a = R_{ab} q_b \quad \longrightarrow \quad R_{ab}^{-1} q_a = R_{ab}^{-1} R_{ab} q_b \quad \longrightarrow \quad R_{ab}^{-1} q_a = I q_b \quad \longrightarrow \quad R_{ab}^{-1} q_a = q_b $$
+		
+		$$q_b = R_{ab}^{-1} q_a = \left[ \begin{array}{ccc}
+		  0.6332 & 0.4703 & 0.6148 \\
+		  -0.4828 & 0.8608 & -0.1611 \\
+		  -0.6050 & -0.1948 & 0.7721
+		\end{array} \right] \cdot \left[ \begin{array}{r}
+		  2 \\
+		  -1 \\
+		  1
+		\end{array} \right]$$
+		
+		$$\boxed{q_b = \left[ \begin{array}{r}
+		  1.4109 \\
+		  -1.9875 \\
+		  -0.2431
+		\end{array} \right] }$$
+		
+		The following MATLAB command was used to generate the above solution, \tt q\_b = R\_ab'*q\_a \rm . 
+			
+		
+		
+	
+\end{document}   
